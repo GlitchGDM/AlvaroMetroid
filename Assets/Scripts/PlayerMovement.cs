@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             controller.wallSliding = false; 
         }
-        if (Input.GetButtonDown("Fire2") && actualShape == 2 && !doingGroundPound)
+        if (Input.GetButtonDown("Fire1") && actualShape == 2 && !doingGroundPound)
         {
             if (!controller.m_Grounded)
             {

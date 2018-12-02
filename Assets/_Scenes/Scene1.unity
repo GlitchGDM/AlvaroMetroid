@@ -712,6 +712,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1980377960067800, guid: 64eedc871a81d2841a41e21ba58249b6, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64eedc871a81d2841a41e21ba58249b6, type: 2}
   m_IsPrefabAsset: 0
@@ -1498,6 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febbb792a9dde5f49b81e2c0d46973ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YesIs0: 1
 --- !u!114 &1849215284 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114505644334338688, guid: 80bc83cda5fc3a4448233636b8b2c9dd,
