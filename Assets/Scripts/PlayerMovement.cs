@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,13 +21,18 @@ public class PlayerMovement : MonoBehaviour {
     public float horizontalMove = 0f;
 
     public float runSpeed = 40f;
-    bool jump = false;
+    public bool jump = false;
     bool crouch = false;
     bool grounded;
 
     bool lookingRight = true;
-    
-    int actualShape = 0;
+
+    bool doGroundPound = false;
+    public bool doingGroundPound = false;
+
+    public int actualShape = 0;
+
+    public bool megaJump = false;
 
 	// Update is called once per frame
 	void Update () {
@@ -34,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-            if (Input.GetButtonDown("Jump") && !controller.wallSliding)
+            if (Input.GetButtonDown("Jump") && !controller.wallSliding && !doGroundPound)
             {
                 jump = true;
             }
@@ -73,21 +79,51 @@ public class PlayerMovement : MonoBehaviour {
         if (!GetComponent<CharacterController2D>().m_Grounded && actualShape == 1)
         {
             wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
-            Debug.Log(wallCheck);
         }
         if (!wallCheck || controller.m_Grounded)
         {
-            controller.wallSliding = false;
+            controller.wallSliding = false; 
         }
+        if (Input.GetButtonDown("Fire2") && actualShape == 2 && !doingGroundPound)
+        {
+            if (!controller.m_Grounded)
+            {
+                megaJump = true;
+                doGroundPound = true;
+                doingGroundPound = true;
+            }
+        }
+
 	}
 
     void FixedUpdate()
-    { 
-        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-        jump = false;
+    {
+        if (!doingGroundPound)
+        {
+            controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+            jump = false;
+        }
+        
+        if (doGroundPound)
+        {
+            GroundPoundAttack();
+            
+        }
+        doGroundPound = false;
+        if (controller.m_Grounded && doingGroundPound)
+        {
+            doingGroundPound = false;
+            controller.CompleteGroundPound();
+        }
     }
 
-    void ChangeShape()
+    private void GroundPoundAttack()
+    {
+        controller.Stop();
+        controller.StartCoroutine("DropAndSmash");
+    }
+
+    public void ChangeShape()
     {
         if (actualShape == 0)
         {

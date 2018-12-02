@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+    private static GameManager gameManagerInstance;
+
     public string previousScene;
     public string newScene;
 
@@ -12,9 +14,27 @@ public class GameManager : MonoBehaviour {
 
     private GameObject player;
 
+    public int actualShapeOnExit;
+
+    public bool somethingBroke = false;
+    public bool somethingBroke1 = false;
+
+    bool brokenScene1 = false;
+    bool brokenScene7 = false;
+    bool brokenScene9a = false;
+    bool brokenScene9b = false;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        if (gameManagerInstance == null)
+        {
+            gameManagerInstance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Use this for initialization
@@ -24,13 +44,44 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (somethingBroke)
+        {
+            SaveBrokenStuff();
+            
+        }
+    }
 
+    void SaveBrokenStuff()
+    {
+        if (SceneManager.GetActiveScene().name == "Scene1")
+        {
+            brokenScene1 = true;
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene7")
+        {
+            brokenScene7 = true;
+        }
+        else if(SceneManager.GetActiveScene().name == "Scene7")
+        {
+            if (somethingBroke)
+            {
+                brokenScene9a = true;
+            }
+            else if (somethingBroke1)
+            {
+                brokenScene9b = true;
+            }
+        }
+        somethingBroke = false;
+        somethingBroke1 = false;
     }
 
     private void OnLevelWasLoaded(int level)
     {
         player = GameObject.Find("Player");
-        if(SceneManager.GetActiveScene().name == "Scene1") //Spawnpoints en Scene1
+        player.GetComponent<PlayerMovement>().actualShape = actualShapeOnExit;
+        player.GetComponent<PlayerMovement>().ChangeShape();
+        if (SceneManager.GetActiveScene().name == "Scene1") //Spawnpoints en Scene1
         {
             if (previousScene == "Scene2")
             {
@@ -41,6 +92,10 @@ public class GameManager : MonoBehaviour {
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene9");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            if (brokenScene1)
+            {
+                Destroy(GameObject.Find("BreakableBlock"));
             }
         }
         else if (SceneManager.GetActiveScene().name == "Scene2") //Spawnpoints en Scene2
@@ -144,6 +199,10 @@ public class GameManager : MonoBehaviour {
                 GameObject spawn = GameObject.Find("SpawnpointScene8b");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
+            if (brokenScene7)
+            {
+                Destroy(GameObject.Find("BreakableBlock"));
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Scene8") //Spawnpoints en Scene8
         {
@@ -163,7 +222,7 @@ public class GameManager : MonoBehaviour {
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
-        else if (SceneManager.GetActiveScene().name == "Scene9") //Spawnpoints en Scene8
+        else if (SceneManager.GetActiveScene().name == "Scene9") //Spawnpoints en Scene9
         {
             if (previousScene == "Scene8")
             {
@@ -179,6 +238,20 @@ public class GameManager : MonoBehaviour {
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene1");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+
+            if (brokenScene1)
+            {
+                Debug.Log("Destruido");
+                Destroy(GameObject.Find("BreakableBlock"));
+            }
+            else if (brokenScene9a)
+            {
+                Destroy(GameObject.Find("BreakableBlock"));
+            }
+            else if (brokenScene9b)
+            {
+                Destroy(GameObject.Find("BreakableBlock1"));
             }
         }
         else if (SceneManager.GetActiveScene().name == "Scene10") //Spawnpoints en Scene8

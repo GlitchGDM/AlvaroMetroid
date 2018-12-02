@@ -305,6 +305,10 @@ MonoBehaviour:
     m_Bits: 1
   horizontalMove: 0
   runSpeed: 40
+  jump: 0
+  doingGroundPound: 0
+  actualShape: 0
+  megaJump: 0
 --- !u!114 &114819179376680340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -338,6 +342,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: CharacterController2D+BoolEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  stopTime: 0.2
+  dropForce: 40
 --- !u!212 &212204766673701446
 SpriteRenderer:
   m_ObjectHideFlags: 1
