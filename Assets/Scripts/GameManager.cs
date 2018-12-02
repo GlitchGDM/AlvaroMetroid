@@ -75,6 +75,32 @@ public class GameManager : MonoBehaviour {
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
+        else if (SceneManager.GetActiveScene().name == "Scene5") //Spawnpoints en Scene4
+        {
+            if (previousScene == "Scene4")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene4");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene6")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene6");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene6") //Spawnpoints en Scene4
+        {
+            if (previousScene == "Scene5")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene5");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene7")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene7");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
     }
 
 }
