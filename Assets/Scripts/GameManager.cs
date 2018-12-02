@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour {
                 GameObject spawn = GameObject.Find("SpawnpointScene2");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
+            else if (previousScene == "Scene9")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene9");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Scene2") //Spawnpoints en Scene2
         {
@@ -74,6 +79,21 @@ public class GameManager : MonoBehaviour {
             else if (previousScene == "Scene5")
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene5");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene9")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene9");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene10")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene10");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene11")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene11");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
@@ -136,6 +156,45 @@ public class GameManager : MonoBehaviour {
             else if (previousScene == "Scene7" && !is8A)
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene7b");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene9") //Spawnpoints en Scene8
+        {
+            if (previousScene == "Scene8")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene8");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene4")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene4");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene1")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene1");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene10") //Spawnpoints en Scene8
+        {
+            if (previousScene == "Scene3")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene3");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene4")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene4");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene11") //Spawnpoints en Scene8
+        {
+            if (previousScene == "Scene4")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene4");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
