@@ -90,6 +90,10 @@ public class GameManager : MonoBehaviour {
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene10");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+                if (GameObject.Find("Puerta"))
+                {
+                    Destroy(GameObject.Find("Puerta"));
+                }
             }
             else if (previousScene == "Scene11")
             {

@@ -13,13 +13,17 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	private bool m_Grounded;            // Whether or not the player is grounded.
+	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
-	[Header("Events")]
+    private PlayerMovement playerMov;
+
+    public bool wallSliding;
+
+    [Header("Events")]
 	[Space]
 
 	public UnityEvent OnLandEvent;
@@ -33,6 +37,8 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        playerMov = GetComponent<PlayerMovement>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -130,10 +136,17 @@ public class CharacterController2D : MonoBehaviour
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
-	}
+        if (m_FacingRight && playerMov.horizontalMove > 0 || !m_FacingRight && playerMov.horizontalMove < 0)
+        {
+            if (playerMov.wallCheck)
+            {
+                HandleWallSliding();
+            }
+        }
+    }
 
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
@@ -143,4 +156,25 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+    public void HandleWallSliding()
+    {
+        m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -0.7f);
+        wallSliding = true;
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (m_FacingRight)
+            {
+                Flip();
+                m_Rigidbody2D.AddForce(new Vector2(-m_JumpForce*3, m_JumpForce));
+            }
+            else
+            {
+                Flip();
+                m_Rigidbody2D.AddForce(new Vector2(m_JumpForce*3, m_JumpForce));
+            }
+        }
+
+    }
 }

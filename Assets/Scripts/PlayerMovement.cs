@@ -12,11 +12,19 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject circle;
     public GameObject triangle;
 
-    float horizontalMove = 0f;
+    
+    public Transform wallCheckPoint;
+    public bool wallCheck;
+    public LayerMask wallLayerMask;
+
+    public float horizontalMove = 0f;
 
     public float runSpeed = 40f;
     bool jump = false;
     bool crouch = false;
+    bool grounded;
+
+    bool lookingRight = true;
     
     int actualShape = 0;
 
@@ -26,7 +34,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && !controller.wallSliding)
             {
                 jump = true;
             }
@@ -44,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             canMove = !canMove;
         }
-        if(Input.GetButtonDown("ChangeLeft") && crouch == false)
+        if(Input.GetButtonDown("ChangeRight") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
         {
             actualShape++;
             if(actualShape == 3)
@@ -53,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             ChangeShape();
         }
-        else if (Input.GetButtonDown("ChangeRight") && crouch == false)
+        else if (Input.GetButtonDown("ChangeLeft") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
         {
             actualShape--;
             if (actualShape < 0)
@@ -62,10 +70,19 @@ public class PlayerMovement : MonoBehaviour {
             }
             ChangeShape();
         }
+        if (!GetComponent<CharacterController2D>().m_Grounded && actualShape == 1)
+        {
+            wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
+            Debug.Log(wallCheck);
+        }
+        if (!wallCheck || controller.m_Grounded)
+        {
+            controller.wallSliding = false;
+        }
 	}
 
     void FixedUpdate()
-    {
+    { 
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }

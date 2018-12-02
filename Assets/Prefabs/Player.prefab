@@ -73,6 +73,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1474659446051474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4857718017981276}
+  m_Layer: 8
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1790454206481606
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4592348536496206}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4592348536496206
 Transform:
@@ -143,11 +158,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980377960067800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.15, y: -1.37, z: 0}
+  m_LocalPosition: {x: 1.2983732, y: -2.0132513, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4031001315801866}
   - {fileID: 4934186352237242}
+  - {fileID: 4857718017981276}
   - {fileID: 4614294197937354}
   - {fileID: 4260872034609066}
   - {fileID: 4610957040548494}
@@ -165,7 +181,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4592348536496206}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!4 &4614294197937354
 Transform:
@@ -175,6 +191,19 @@ Transform:
   m_GameObject: {fileID: 1790454206481606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4592348536496206}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4857718017981276
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474659446051474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.41, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4592348536496206}
@@ -269,6 +298,12 @@ MonoBehaviour:
   square: {fileID: 1790454206481606}
   circle: {fileID: 1068253866047880}
   triangle: {fileID: 1467712361946994}
+  wallCheckPoint: {fileID: 4857718017981276}
+  wallCheck: 0
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  horizontalMove: 0
   runSpeed: 40
 --- !u!114 &114819179376680340
 MonoBehaviour:
@@ -291,6 +326,8 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 4934186352237242}
   m_CeilingCheck: {fileID: 4031001315801866}
   m_CrouchDisableCollider: {fileID: 61037936151950456}
+  m_Grounded: 0
+  wallSliding: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
