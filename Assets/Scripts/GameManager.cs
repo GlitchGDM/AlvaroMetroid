@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public string previousScene;
     public string newScene;
 
+    public bool is8A = false;
+
     private GameObject player;
 
     private void Awake()
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-	}
+    }
 
     private void OnLevelWasLoaded(int level)
     {
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour {
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
-        else if (SceneManager.GetActiveScene().name == "Scene5") //Spawnpoints en Scene4
+        else if (SceneManager.GetActiveScene().name == "Scene5") //Spawnpoints en Scene5
         {
             if (previousScene == "Scene4")
             {
@@ -88,7 +90,7 @@ public class GameManager : MonoBehaviour {
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }
-        else if (SceneManager.GetActiveScene().name == "Scene6") //Spawnpoints en Scene4
+        else if (SceneManager.GetActiveScene().name == "Scene6") //Spawnpoints en Scene6
         {
             if (previousScene == "Scene5")
             {
@@ -98,6 +100,42 @@ public class GameManager : MonoBehaviour {
             else if (previousScene == "Scene7")
             {
                 GameObject spawn = GameObject.Find("SpawnpointScene7");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene7") //Spawnpoints en Scene7
+        {
+            if (previousScene == "Scene6")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene6");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene8" && is8A)
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene8a");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene8" && !is8A)
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene8b");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene8") //Spawnpoints en Scene8
+        {
+            if (previousScene == "Scene9")
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene9");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene7" && is8A)
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene7a");
+                player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
+            }
+            else if (previousScene == "Scene7" && !is8A)
+            {
+                GameObject spawn = GameObject.Find("SpawnpointScene7b");
                 player.transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y, spawn.transform.position.z);
             }
         }

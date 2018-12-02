@@ -10,6 +10,14 @@ public class LevelTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (gameObject.name == "LevelChangeScene8a" || gameObject.name == "LevelChangeScene7a")
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().is8A = true;
+        }
+        else if (gameObject.name == "LevelChangeScene8b" || gameObject.name == "LevelChangeScene7b")
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().is8A = false;
+        }
         lChanger.FadeToNextLevel(levelToLoad);
     }
 }
