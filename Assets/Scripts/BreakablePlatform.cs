@@ -8,7 +8,7 @@ public class BreakablePlatform : MonoBehaviour {
     private CharacterController2D chara;
     private GameManager gm;
 
-    public bool YesIs0 = true;
+    public bool YesIs0;
 
     // Use this for initialization
     void Start () {
@@ -24,15 +24,13 @@ public class BreakablePlatform : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("hola");
-        Debug.Log(player.megaJump);
         if (player.doingGroundPound || player.megaJump)
         {
-            if (YesIs0)
+            if (this.gameObject.name == "BreakableBlock")
             {
                 gm.somethingBroke = true;
             }
-            else
+            else if(this.gameObject.name == "BreakableBlock1")
             {
                 gm.somethingBroke1 = true;
             }

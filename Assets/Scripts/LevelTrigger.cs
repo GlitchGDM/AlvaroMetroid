@@ -11,7 +11,6 @@ public class LevelTrigger : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().actualShapeOnExit = GameObject.Find("Player").GetComponent<PlayerMovement>().actualShape;
-        Debug.Log(GameObject.Find("GameManager").GetComponent<GameManager>().actualShapeOnExit);
         if (gameObject.name == "LevelChangeScene8a" || gameObject.name == "LevelChangeScene7a")
         {
             GameObject.Find("GameManager").GetComponent<GameManager>().is8A = true;

@@ -106,9 +106,12 @@ public class CharacterController2D : MonoBehaviour
 					m_CrouchDisableCollider.enabled = false;
 			} else
 			{
-				// Enable the collider when not crouching
-				if (m_CrouchDisableCollider != null)
-					m_CrouchDisableCollider.enabled = true;
+                // Enable the collider when not crouching
+                if (m_CrouchDisableCollider != null)
+                {
+                    m_CrouchDisableCollider.enabled = true;
+                    playerMov.anim.SetBool("Crouch", false);
+                }
 
 				if (m_wasCrouching)
 				{
@@ -205,6 +208,5 @@ public class CharacterController2D : MonoBehaviour
     public void CompleteGroundPound()
     {
         m_Rigidbody2D.gravityScale = 3f;
-        Debug.Log("final");
     }
 }

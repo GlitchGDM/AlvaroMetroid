@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -12,8 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject square;
     public GameObject circle;
     public GameObject triangle;
-
-    
+ 
     public Transform wallCheckPoint;
     public bool wallCheck;
     public LayerMask wallLayerMask;
@@ -34,6 +34,16 @@ public class PlayerMovement : MonoBehaviour {
 
     public bool megaJump = false;
 
+    GameManager gm;
+
+    public Animator anim;
+
+    void Awake()
+    {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        anim = GetComponent<Animator>();
+    }
+
 	// Update is called once per frame
 	void Update () {
         if (canMove)
@@ -44,38 +54,79 @@ public class PlayerMovement : MonoBehaviour {
             {
                 jump = true;
             }
-
-            if (Input.GetButtonDown("Crouch") && actualShape == 0)
+            if (gm.pickUp1Acquired)
             {
-                crouch = true;
-            }
-            else if (Input.GetButtonUp("Crouch") && actualShape == 0)
-            {
-                crouch = false;
-            }
+                if (Input.GetButtonDown("Crouch") && actualShape == 0)
+                {
+                    crouch = true;
+                    anim.SetBool("Crouch", true);
+                }
+                else if (Input.GetButtonUp("Crouch") && actualShape == 0)
+                {
+                    crouch = false;
+                }
+            }  
         }
         if (Input.GetButtonDown("Map"))
         {
             canMove = !canMove;
-        }
-        if(Input.GetButtonDown("ChangeRight") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
-        {
-            actualShape++;
-            if(actualShape == 3)
+            if (!canMove)
             {
-                actualShape = 0;
+                GameObject.Find("CanvasMap").GetComponent<Canvas>().enabled = true;
             }
-            ChangeShape();
-        }
-        else if (Input.GetButtonDown("ChangeLeft") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
-        {
-            actualShape--;
-            if (actualShape < 0)
+            else if(canMove)
             {
-                actualShape = 2;
+                GameObject.Find("CanvasMap").GetComponent<Canvas>().enabled = false;
             }
-            ChangeShape();
+            gm.CheckMap();
+            
         }
+        if (gm.pickUp2Acquired||gm.pickUp3Acquired)
+        {
+            if (Input.GetButtonDown("ChangeRight") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
+            {
+                actualShape++;
+                if (gm.pickUp3Acquired)
+                {
+                    if (actualShape == 3)
+                    {
+                        actualShape = 0;
+                    }
+                }
+                else if (gm.pickUp2Acquired)
+                {
+                    if (actualShape == 2)
+                    {
+                        actualShape = 0;
+                    }
+                }
+                
+                ChangeShape();
+            }
+            else if (Input.GetButtonDown("ChangeLeft") && crouch == false && GetComponent<CharacterController2D>().m_Grounded)
+            {
+                actualShape--;
+                if (gm.pickUp3Acquired)
+                {
+                    if (actualShape < 0)
+                    {
+                        actualShape = 2;
+                    }
+                }
+                else if (gm.pickUp2Acquired)
+                {
+                    if (actualShape < 0)
+                    {
+                        actualShape = 1;
+                    }
+                }
+
+                
+                
+                ChangeShape();
+            }
+        }
+        
         if (!GetComponent<CharacterController2D>().m_Grounded && actualShape == 1)
         {
             wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
@@ -131,13 +182,13 @@ public class PlayerMovement : MonoBehaviour {
             triangle.SetActive(false);
             circle.SetActive(false);
         }
-        else if (actualShape == 1)
+        else if (actualShape == 1 && gm.pickUp2Acquired)
         {
             square.SetActive(false);
             triangle.SetActive(true);
             circle.SetActive(false);
         }
-        else if (actualShape == 2)
+        else if (actualShape == 2 && gm.pickUp3Acquired)
         {
             square.SetActive(false);
             triangle.SetActive(false);
